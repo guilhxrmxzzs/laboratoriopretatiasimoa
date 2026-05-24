@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lab. Preta Tia Simoa - Projeto de História e Tecnologia">
+    <title>Memorial Simoa | Engenharia por Guilherme M.</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display+SC:wght@400;700;900&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <link rel="stylesheet" href="C:\Users\MANINHO\Downloads\laboratorio de historia arq 2.0\src-20260412T105913Z-3-001\src\css\style.css">
+</head>
+<body>
+
+    <div class="top-clock">
+        <span id="live-date">00/00/2026</span>
+        <span class="separator">|</span>
+        <span id="live-time">00:00:00</span>
+    </div>
+
+    <div id="preloader">
+        <div class="loader-wrap">
+            <div class="loader-text">SIMOA</div>
+            <div class="loader-bar-container">
+                <div class="loader-bar-fill" id="bar"></div>
+            </div>
+            <p style="font-family: var(--font-accent); font-size: 0.6rem; letter-spacing: 5px; margin-top: 15px; opacity: 0.5;">RECUPERANDO DADOS HISTÓRICOS</p>
+        </div>
+    </div>
+
+    <div id="particles-js"></div>
+
+    <!-- HEADER CORRIGIDO: div.logo fechada antes de nav -->
+    <header id="header">
+        <div class="logo">
+            <img src="C:\Users\MANINHO\Downloads\laboratorio de historia arq 2.0\WhatsApp_Image_2026-02-20_at_12.56.28__2_-removebg-preview.png" alt="Logo Lab. Preta Tia Simoa" class="logo-img">
+            <div class="logo-text">
+                <h1>LAB. PRETA TIA SIMOA</h1>
+                <span class="sub-logo">EEEP DEP. ROBERTO MESQUITA</span>
+            </div>
+        </div><!-- fim .logo -->
+
+        <nav>
+            <ul>
+                <li><a href="#inicio">INÍCIO</a></li>
+                <li><a href="#sobre">TIA SIMOA</a></li>
+                <li><a href="#equipe">CORPO DE PESQUISA</a></li>
+                <li><a href="#cronologia">CRONOLOGIA</a></li>
+                <li><a href="#galeria">ACERVO</a></li>
+                <li><a href="#sapiencia">SAPIÊNCIA</a></li>
+                <li><a href="#agendamento">AGENDAMENTO</a></li>
+                <li><a href="#contato">SEDE</a></li>
+            </ul>
+        </nav>
+
+        <div class="menu-toggle">☰</div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-title-container" data-aos="zoom-out">
+            <span class="hero-meta">General Sampaio • Ceará</span>
+            <h2>PRETA TIA <span>SIMOA</span></h2>
+            <p style="font-family: var(--font-accent); font-size: 0.75rem; letter-spacing: 8px; opacity: 0.5;">PRODUÇÃO CULTURAL ESTUDANTIL</p>
+        </div>
+    </section>
+
+    <section class="section-container" id="sobre">
+        <div class="section-header" data-aos="fade-up">
+            <h2>quem foi preta tia simoa?</h2>
+            <p>Tia Simoa foi uma mulher negra liberta que se destacou como liderança popular no Ceará do século XIX.</p>
+            <p>Associada às mobilizações abolicionistas e à histórica Greve dos Jangadeiros (1881),
+            seu nome simboliza a força das mulheres negras na luta contra a escravidão e contra o apagamento da memória afro-cearense.</p>
+            <p style="margin-top:20px; font-style: italic; color: var(--ouro);">
+            "Enquanto muitos foram esquecidos pela história oficial, ela permaneceu na memória do povo."
+            </p>
+        </div>
+        <div class="master-grid">
+            <div class="card-pro span-8" data-aos="fade-right">
+                <span class="card-tag">Produção Técnica</span>
+                <h3>Digitalização de Acervo</h3>
+                <p>Processo de preservação de documentos físicos através de escaneamento de alta fidelidade e catalogação digital, garantindo a permanência da memória histórica.</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-left">
+                <span class="card-tag">Pesquisa</span>
+                <h3>Fontes Primárias</h3>
+                <p>Coleta e análise de documentos, cartas, fotografias e depoimentos que contam a história de Tia Simoa e da resistência negra cearense.</p>
+            </div>
+            <div class="card-pro span-12" style="background: var(--sangue); border: none;" data-aos="zoom-in">
+                <h3 style="color: var(--creme); text-align: center; font-size: 3.5rem;">"A história é um organismo vivo que respira através da tecnologia."</h3>
+                <p style="text-align: center; color: var(--ouro); font-family: var(--font-accent); letter-spacing: 5px;">COLETIVO DE ALUNOS - 2024</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="equipe">
+        <div class="section-header" data-aos="fade-up">
+            <h2 id="toggleEquipe" class="toggle-btn" style="cursor:pointer;">
+                Corpo de Pesquisa <span class="toggle-icon">▼</span>
+            </h2>
+            <p>Clique no título acima para ver nossos alunos.</p>
+        </div>
+
+        <div id="conteudoEquipe" style="display: none;">
+            <input type="text" id="searchAlunos" placeholder="FILTRAR POR NOME OU ESPECIALIDADE..." data-aos="fade-up">
+            <div class="master-grid" id="containerAlunos"></div>
+        </div>
+    </section>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-photo" style="width: 150px; height: 150px; border-radius: 50%; background-size: cover; background-position: center; margin: 0 auto 20px; border: 2px solid var(--ouro);"></div>
+            <h2 id="modal-name" style="color: var(--ouro); font-size: 2.5rem; margin-bottom: 10px;"></h2>
+            <p id="modal-course" style="font-size: 1.2rem; color: var(--creme); margin-bottom: 20px;"></p>
+            <p id="modal-bio" style="font-size: 1.1rem; line-height: 1.6;"></p>
+        </div>
+    </div>
+
+    <section class="section-container" id="cronologia">
+        <div class="section-header" data-aos="fade-right">
+            <h2>Cronologia do Laboratório</h2>
+            <p>Os marcos fundamentais da trajetória da inicialização do laboratório Preta Tia Simoa.</p>
+        </div>
+        <div class="timeline-section">
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2024</span>
+                <h4>Início do Lab (Temporário)</h4>
+                <p>Fundação do Laboratório Preta Tia Simoa como projeto estudantil na EEEP Roberto Mesquita, com foco inicial em pesquisa histórica afro-cearense.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2024</span>
+                <h4>Primeiras Pesquisas</h4>
+                <p>Equipe inicia coleta de fontes primárias sobre Tia Simoa e a Greve dos Jangadeiros, utilizando arquivos digitais e entrevistas.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2024</span>
+                <h4>Desenvolvimento do Site</h4>
+                <p>Lançamento da primeira versão do site memorial, com design responsivo e integração de tecnologias modernas para preservação digital.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2025</span>
+                <h4>Expansão da Equipe</h4>
+                <p>Incorporação de mais de 40 estudantes de diversas áreas, fortalecendo a interdisciplinaridade do projeto.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2025</span>
+                <h4>Parcerias Institucionais</h4>
+                <p>Estabelecimento de colaborações com UFC, Unilab e ANPUH para validação acadêmica e suporte técnico.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2025</span>
+                <h4>Eventos e Workshops</h4>
+                <p>Realização de palestras e oficinas sobre história negra, alcançando comunidades locais e escolares.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2026</span>
+                <h4>Publicação de Conteúdo</h4>
+                <p>Lançamento de e-book e documentário sobre Tia Simoa, disseminando conhecimento para o público geral.</p>
+            </div>
+            <div class="timeline-item" data-aos="fade-up">
+                <span class="timeline-date">2026</span>
+                <h4>Premiações e Reconhecimento</h4>
+                <p>Recebimento de prêmios educacionais por inovação em projetos de memória afro-brasileira.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="galeria">
+        <div class="section-header" data-aos="fade-down">
+            <h2>Acervo Digital</h2>
+            <p>Depoimento de ex-alunos e integrantes do laboratório.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-box" data-aos="flip-left">
+                <img src="https://images.unsplash.com/photo-1512102438733-bfa4ed29aef7?q=80&w=1000" alt="Acervo 01 - Iconografia Histórica">
+                <div class="gallery-info"><h4>Acervo 01</h4><p>Iconografia Histórica</p></div>
+            </div>
+            <div class="gallery-box" data-aos="flip-left" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1478147427282-58a87a120781?q=80&w=1000" alt="Acervo 02 - Documentação Portuária">
+                <div class="gallery-info"><h4>Acervo 02</h4><p>Documentação Portuária</p></div>
+            </div>
+            <div class="gallery-box" data-aos="flip-left" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1000" alt="Acervo 03 - Registros de Imprensa">
+                <div class="gallery-info"><h4>Acervo 03</h4><p>Registros de Imprensa</p></div>
+            </div>
+            <div class="gallery-box" data-aos="flip-left" data-aos-delay="300">
+                <img src="https://images.unsplash.com/photo-1461360370896-922624d12aa1?q=80&w=1000" alt="Acervo 04 - Mapas de Resistência">
+                <div class="gallery-info"><h4>Acervo 04</h4><p>Mapas de Resistência</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="sapiencia">
+        <div class="section-header" data-aos="fade-right">
+            <h2>Sapiência Ancestral</h2>
+            <p>Termos fundamentais para entender a luta e a cultura afro-brasileira.</p>
+        </div>
+        <div class="glossary-list">
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Ubuntu</div>
+                <div class="definition">Filosofia africana que trata da interdependência: "Eu sou porque nós somos". Enfatiza a conexão entre indivíduos e comunidade.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Ancestralidade</div>
+                <div class="definition">O elo espiritual e histórico com aqueles que vieram antes, fundamentando a identidade presente e guiando ações futuras.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Abolicionismo</div>
+                <div class="definition">Movimento social e político que lutou pela abolição da escravidão no Brasil, com destaque para lideranças negras como Tia Simoa.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Resistência Negra</div>
+                <div class="definition">Práticas de oposição à opressão racial, incluindo revoltas, fugas e manifestações culturais que preservam a identidade africana.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Diáspora Africana</div>
+                <div class="definition">Dispersão de povos africanos pelo mundo devido ao tráfico de escravos, criando redes de solidariedade e cultura compartilhada.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Capoeira</div>
+                <div class="definition">Arte marcial afro-brasileira que combina dança, música e luta, símbolo de resistência e expressão cultural.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Candomblé</div>
+                <div class="definition">Religião afro-brasileira que preserva tradições africanas, com rituais, orixás e conexão espiritual com ancestrais.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Afrocentricidade</div>
+                <div class="definition">Perspectiva que centra a experiência africana na análise histórica e cultural, valorizando contribuições negras.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Interseccionalidade</div>
+                <div class="definition">Conceito que reconhece como raça, gênero, classe e outras identidades se intersectam, afetando experiências de opressão.</div>
+            </div>
+            <div class="glossary-item" data-aos="fade-up">
+                <div class="word">Reparação Histórica</div>
+                <div class="definition">Processo de reconhecimento e compensação pelos danos causados pela escravidão e colonialismo aos povos africanos.</div>
+            </div>
+
+            <div class="word" style="font-size: 2rem; margin-top: 40px;">FAQ / Dúvidas</div>
+            <div class="accordion">
+                <div class="accordion-item" data-aos="fade-up">
+                    <button class="accordion-trigger">O que é o Lab. Preta Tia Simoa? <i class="fa-solid fa-plus"></i></button>
+                    <div class="accordion-content"><p>É um laboratório estudantil de pesquisa histórica focado na valorização da cultura afro-cearense e no uso de tecnologia para preservação de memória.</p></div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up">
+                    <button class="accordion-trigger">Quem foi Tia Simoa? <i class="fa-solid fa-plus"></i></button>
+                    <div class="accordion-content"><p>Tia Simoa foi uma mulher negra liberta no Ceará do século XIX, líder abolicionista e símbolo de resistência contra a escravidão.</p></div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up">
+                    <button class="accordion-trigger">Como participar do laboratório? <i class="fa-solid fa-plus"></i></button>
+                    <div class="accordion-content"><p>Entre em contato conosco via redes sociais ou email institucional. Aceitamos estudantes de todas as áreas interessados em história e tecnologia.</p></div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up">
+                    <button class="accordion-trigger">Quais são os objetivos do projeto? <i class="fa-solid fa-plus"></i></button>
+                    <div class="accordion-content"><p>Preservar a memória afro-cearense, promover educação antirracista e desenvolver tecnologias para acesso democrático ao conhecimento histórico.</p></div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up">
+                    <button class="accordion-trigger">O laboratório é financiado? <i class="fa-solid fa-plus"></i></button>
+                    <div class="accordion-content"><p>Atualmente, é um projeto estudantil voluntário, mas buscamos parcerias com instituições governamentais e privadas para sustentabilidade.</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="depoimentos">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Depoimentos</h2>
+            <p>Vozes dos participantes e colaboradores que fazem parte desta jornada de memória e resistência.</p>
+        </div>
+        <div class="master-grid">
+            <div class="card-pro span-4" data-aos="fade-up">
+                <span class="card-tag">Pesquisadora</span>
+                <h3 style="font-size: 1.8rem;">Isabelle</h3>
+                <p style="font-size: 1.1rem;">"Participar do Lab. Preta Tia Simoa me ensinou a valorizar minha ancestralidade e a importância de preservar histórias que a história oficial tentou apagar."</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-up" data-aos-delay="100">
+                <span class="card-tag">Desenvolvedor</span>
+                <h3>Guilherme M.</h3>
+                <p>"Usar tecnologia para contar histórias de resistência é revolucionário. Este projeto une passado e futuro de forma inovadora."</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-up" data-aos-delay="200">
+                <span class="card-tag">Historiador</span>
+                <h3>João Pedro</h3>
+                <p>"Tia Simoa representa a força das mulheres negras. Este laboratório honra seu legado através da educação e da arte."</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-up">
+                <span class="card-tag">Artista</span>
+                <h3>Ana Clara</h3>
+                <p>"Criar ilustrações para este projeto me conectou profundamente com a cultura afro-cearense. É uma honra contribuir."</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-up" data-aos-delay="100">
+                <span class="card-tag">Educadora</span>
+                <h3>Juliana Pereira</h3>
+                <p>"Ensinar história negra nas escolas é essencial. Projetos como este inspiram gerações futuras a lutar pela justiça racial."</p>
+            </div>
+            <div class="card-pro span-4" data-aos="fade-up" data-aos-delay="200">
+                <span class="card-tag">Antropóloga</span>
+                <h3>Camila Ferreira</h3>
+                <p>"A pesquisa de campo revelou tradições vivas que conectam o Ceará com a África. Este laboratório preserva essa riqueza."</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="agendamento">
+        <div class="section-header" data-aos="fade-up">
+            <h2>Agendamento</h2>
+            <p>Marque sua visita ao acervo, participe de workshops ou agende uma reunião com nossa equipe.</p>
+        </div>
+        <div class="master-grid">
+            <div class="span-6" data-aos="fade-right">
+                <form id="formAgendamento" class="form-agendamento">
+                    <div class="form-group">
+                        <label for="nomeAgendamento">Nome Completo</label>
+                        <input type="text" id="nomeAgendamento" required placeholder="Digite seu nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailAgendamento">E-mail</label>
+                        <input type="email" id="emailAgendamento" required placeholder="seu@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="tipoAtividade">Tipo de Atividade</label>
+                        <select id="tipoAtividade" required>
+                            <option value="">Selecione...</option>
+                            <option value="Visita ao Acervo">Visita institucional</option>
+                            <option value="Workshop">Formação</option>
+                            <option value="Pesquisa">Pesquisa</option>
+                            <option value="Reunião">Palestra</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="dataAgendamento">Data</label>
+                            <input type="date" id="dataAgendamento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="horaAgendamento">Horário</label>
+                            <input type="time" id="horaAgendamento" required min="08:00" max="18:00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="observacoes">Observações</label>
+                        <textarea id="observacoes" rows="3" placeholder="Informações adicionais..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-agendar">CONFIRMAR AGENDAMENTO</button>
+                    <div id="msgAgendamento" class="msg-agendamento"></div>
+                </form>
+            </div>
+            <div class="span-6" data-aos="fade-left">
+                <h3 style="font-family: var(--font-display); font-size: 2rem; color: var(--ouro); margin-bottom: 30px;">Seus Agendamentos</h3>
+                <div id="listaAgendamentos" class="lista-agendamentos">
+                    <p class="empty-state">Nenhum agendamento encontrado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-container" id="contato" style="background: #080808;">
+        <div class="master-grid">
+            <div class="span-6" data-aos="fade-right">
+                <h2 style="font-family: var(--font-display); font-size: 4rem; color: var(--ouro);">Onde Estamos</h2>
+                <p style="margin-top: 20px; font-size: 1.4rem; opacity: 0.6;">EEEP Roberto Mesquita<br>General Sampaio, Ceará</p>
+            </div>
+            <div class="span-6" data-aos="fade-left">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.0000000000005!2d-39.0167!3d-4.5333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNMKwMzInMDAuMCJTIDM5wrAwMScwMC4wIlc!5e0!3m2!1sen!2sbr!4v1630000000000!5m2!1sen!2sbr" width="100%" height="400" style="border: var(--border-glow); border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-top">
+            <div class="footer-brand">
+                <h2>SIMOA</h2>
+                <p>Lab. Preta Tia Simoa - Memória e História Afro-Cearense. Um projeto educacional focado no protagonismo estudantil.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Memorial</h5>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">O Projeto</a></li>
+                    <li><a href="#galeria">Acervo</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Parceiros</h5>
+                <ul>
+                    <li><a href="#">Seduc-CE</a></li>
+                    <li><a href="#">Governo do Ceará</a></li>
+                    <li><a href="#">UFC</a></li>
+                    <li><a href="#">ANPUH</a></li>
+                    <li><a href="#">Unilab</a></li>
+                    <li><a href="#">GT de Gênero da Bahia</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Social</h5>
+                <ul>
+                    <li><a href="#"><i class="fa-brands fa-instagram"></i> Instagram</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div style="font-family: var(--font-accent); font-size: 0.7rem; opacity: 0.4;">
+                © 2024 - TODOS OS DIREITOS RESERVADOS AO COLETIVO SIMOA.
+            </div>
+            <a href="#" class="dev-badge">ENGENHARIA POR: <span>GUILHERME M.</span></a>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="C:\Users\MANINHO\Downloads\laboratorio de historia arq 2.0\src-20260412T105913Z-3-001\src\js\script.js"></script>
+</body>
+</html>
