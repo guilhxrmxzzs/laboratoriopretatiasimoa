@@ -81,3 +81,20 @@ document.addEventListener("DOMContentLoaded", function () {
 btnAcervo.addEventListener('click', () => {
     window.location.href = 'acervo.html';
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
+
+    if (menuToggle && nav) {
+        menuToggle.addEventListener('click', function() {
+            nav.classList.toggle('active');
+            // Altera o ícone de hambúrguer para um 'X' quando aberto
+            if (nav.classList.contains('active')) {
+                menuToggle.textContent = '✕';
+            } else {
+                menuToggle.textContent = '☰';
+            }
+        });
+    }
+});
