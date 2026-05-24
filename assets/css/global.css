@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    scroll-padding-top: 80px;
+    height: 100%;
+}
+
+body {
+    background: var(--gradient-bg);
+    color: var(--creme);
+    font-family: var(--font-main);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    padding: 0; /* sem padding nas bordas */
+}
+
+:root {
+    --ouro: #c5a059;
+    --ouro-rgb: 197, 160, 89;
+    --ouro-brilhante: #f8e58c;
+    --ouro-dark: #8a6d3b;
+    --terra: #000000;
+    --terra-card: #141414;
+    --sangue: #704b05;
+    --creme: #f4eee0;
+    --creme-muted: rgba(244, 238, 224, 0.5);
+
+    --font-main: 'Cormorant Garamond', serif;
+    --font-accent: 'Space Grotesk', sans-serif;
+    --font-display: 'Playfair Display SC', serif;
+    --font-tech: 'Syncopate', sans-serif;
+
+    --transicao-lenta: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    --transicao-media: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    --border-glow: 1px solid rgba(197, 160, 89, 0.2);
+    --glass: rgba(10, 10, 10, 0.85);
+    --glass-blur: blur(20px);
+    --shadow-glow: 0 0 30px rgba(197, 160, 89, 0.3);
+    --gradient-ouro: linear-gradient(135deg, var(--ouro), var(--ouro-brilhante));
+    --gradient-bg: linear-gradient(180deg, #000000 0%, #141414 50%, #000000 100%);
+}
