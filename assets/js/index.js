@@ -1,5 +1,7 @@
 const navLinks = document.querySelectorAll('nav a');
 const sections = document.querySelectorAll('section');
+const conteudoEquipe = document.getElementById('conteudoEquipe');
+const btnAcervo = document.querySelector('.btn-acervo');
 
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
@@ -28,10 +30,6 @@ window.addEventListener('scroll', () => {
         heroTitle.style.opacity = 1 - (scroll / 800);
     }
 });
-
-// =============================================
-// ACCORDION
-// =============================================
 document.querySelectorAll('.accordion-trigger').forEach(item => {
     item.addEventListener('click', () => {
         const content = item.nextElementSibling;
@@ -44,4 +42,42 @@ document.querySelectorAll('.accordion-trigger').forEach(item => {
             if (icon) icon.classList.replace('fa-plus', 'fa-minus');
         }
     });
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const btnVerMais = document.getElementById("btnVerMais");
+    const cardsOcultos = document.querySelectorAll(".card-aluno.oculto");
+
+    if (btnVerMais) {
+        btnVerMais.addEventListener("click", function () {
+            // Verifica se os cards já estão visíveis
+            const estaAberto = btnVerMais.classList.contains("ativo");
+
+            cardsOcultos.forEach((card, index) => {
+                if (!estaAberto) {
+                    // Adiciona um pequeno atraso em cascata para cada card aparecer individualmente
+                    setTimeout(() => {
+                        card.classList.add("mostrar-card");
+                    }, index * 100); 
+                } else {
+                    card.classList.remove("mostrar-card");
+                }
+            });
+
+            // Altera o texto e o estado do botão
+            if (!estaAberto) {
+                btnVerMais.classList.add("ativo");
+                btnVerMais.innerHTML = 'Ver Menos <span class="seta-btn">▼</span>';
+            } else {
+                btnVerMais.classList.remove("ativo");
+                btnVerMais.innerHTML = 'Ver Todos <span class="seta-btn">▼</span>';
+                
+                // Rola a tela suavemente de volta para o topo da seção se o usuário fechar
+                document.getElementById("equipe").scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    }
+});
+
+btnAcervo.addEventListener('click', () => {
+    window.location.href = 'acervo.html';
 });
