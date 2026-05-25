@@ -64,3 +64,80 @@
         gap: 20px;
     }
 }
+
+
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE AJUSTADA)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    footer {
+        padding: 60px 5% 40px; /* Reduz ligeiramente o recuo lateral em tablets */
+    }
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .hero h2 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+    header { padding: 15px 5%; }
+    
+    /* Ativando o botão hambúrguer */
+    .menu-toggle { display: block; }
+    
+    /* Transformando o menu em uma gaveta lateral/topo responsiva */
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        border-left: 1px solid rgba(197, 160, 89, 0.2);
+        backdrop-filter: blur(15px);
+        padding: 100px 40px;
+        transition: 0.4s ease;
+        z-index: 4999;
+    }
+    
+    /* Classe para abrir o menu via Javascript */
+    nav.active { right: 0; }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 30px;
+        margin-left: 0;
+    }
+    nav a { font-size: 1rem; }
+
+    .logo-text h1 { font-size: 0.9rem; letter-spacing: 3px; }
+    .sub-logo { font-size: 0.7rem; }
+
+    .section-container { padding: 60px 5%; }
+    .section-header h2 { font-size: 1.8rem; }
+    .section-header p { font-size: 1.1rem; }
+
+    /* Ajuste do formulário */
+    .form-row { grid-template-columns: 1fr; gap: 20px; }
+
+    /* AJUSTES DO FOOTER PARA CELULAR */
+    footer {
+        padding: 60px 20px 40px; /* Altera o padding lateral de 10% para apenas 20px fixos para dar espaço ao conteúdo */
+    }
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .copyright-text {
+        text-align: center; /* Garante que o texto fique centralizado quando quebrar para coluna */
+    }
+}
