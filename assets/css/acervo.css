@@ -1,0 +1,498 @@
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    z-index: 5000;
+    transition: var(--transicao-media);
+    backdrop-filter: var(--glass-blur);
+    background: rgba(0, 0, 0, 0.85);
+    
+}
+header.scrolled {
+    padding: 12px 5%;
+    background: rgba(0, 0, 0, 0.95);
+    border-bottom: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+}
+
+.logo {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    margin: 10px 10px;
+}
+.logo-img {
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 1px solid rgba(197, 160, 89, 0.4);
+    flex-shrink: 0;
+
+}
+.logo-text h1 {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+}
+
+.sub-logo {
+    font-family: var(--font-accent);
+    font-size: 0.8rem;
+    font-style: italic;
+    color: var(--ouro);
+}
+.section-container {
+    padding: 30px 10%;
+    position: relative;
+    z-index: 3;
+}
+/* RODAPÉ (COMENTÁRIO CORRIGIDO) */
+footer {
+    padding: 80px 10% 40px;
+    background: linear-gradient(180deg, #050505 0%, #000000 100%);
+    border-top: 2px solid rgba(112, 75, 5, 0.5);
+    position: relative;
+}
+footer::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: #c5a059;
+}
+.footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+.footer-brand h2 { font-family: var(--font-display); font-size: 2.5rem; color: var(--ouro); margin-bottom: 20px; }
+.footer-brand p { opacity: 0.5; max-width: 350px; font-size: 1rem; line-height: 1.6; }
+.footer-col h5 {
+    font-family: var(--font-accent); color: var(--ouro); letter-spacing: 4px;
+    text-transform: uppercase; margin-bottom: 20px; font-size: 0.8rem;
+}
+.footer-col ul { list-style: none; }
+.footer-col li { margin-bottom: 12px; }
+.footer-col a { color: var(--creme); text-decoration: none; opacity: 0.5; transition: 0.3s; font-size: 0.95rem; }
+.footer-col a:hover { opacity: 1; color: var(--ouro); padding-left: 5px; }
+.footer-bottom {
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+}
+#agendamentoForm{
+ grid-template-columns: repeat( minmax(260px, 1fr));
+}/* ==========================================================================
+   ACERVO DE AÇÕES E MOMENTOS (Estilo Memorial Simoa)
+   ========================================================================== */
+
+.company-showcase {
+
+    color: var(--creme);
+    background: transparent;
+}
+
+/* Header & Títulos (Identidade Simoa) */
+.showcase-header {
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(197, 160, 89, 0.05);
+    border: var(--border-glow);
+    border-radius: 7px;
+    padding: 8px 15px;
+    margin-bottom: 24px;
+    backdrop-filter: var(--glass-blur);
+    font-size: 1.3rem;
+    font-family: var(--font-accent);
+    letter-spacing: 2px;
+}
+
+.badge-text {
+    color: var(--ouro-brilhante);
+    font-weight:300;
+    font-style: italic;
+}
+
+.showcase-main-title {
+    font-size: clamp(3rem, 6vw, 4.8rem);
+    font-family: times new roman, serif;
+    font-weight: 500;
+    letter-spacing: 2px;
+    color: var(--creme);
+    line-height: 1.2;
+    margin-bottom: 16px;
+    font-style: italic;
+}
+
+.showcase-main-title .title-plus {
+    color: var(--ouro);
+    text-shadow: 0 0 15px rgba(197, 160, 89, 0.2);
+}
+
+.showcase-subtitle {
+    font-size: 1.6rem;
+    font-family: var(--font-main);
+    color: var(--creme-muted);
+    max-width: 700px;
+    line-height: 1.6;
+    margin: 0 auto;
+}
+
+/* Seção de Filtros (Estilo Premium) */
+.filter-section {
+  
+    margin: 0 auto 40px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Customização dos botões gerados dinamicamente via JS */
+.filter-btn {
+    padding: 6px 12px;
+    border: var(--border-glow);
+    background-color: var(--terra-card);
+    color: var(--creme-muted);
+    border-radius: 7px;
+    cursor: pointer;
+    font-family: var(--font-accent);
+    font-weight: 500; 
+    font-size: 1rem;
+    letter-spacing: 1px;
+    transition: var(--transicao-media);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-btn:hover {
+    background-color: #1c1c1c;
+    color: var(--creme);
+    border-color: var(--ouro);
+}
+
+.filter-btn.active {
+    background: var(--gradient-ouro);
+    color: var(--terra);
+    border-color: transparent;
+    box-shadow: var(--shadow-glow);
+    font-weight: 600;
+}
+
+/* Grid e Listagem das Linhas (Cards) */
+.company-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.company-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 32px;
+    padding: 24px;
+    border: var(--border-glow);
+    border-radius: 7px;
+    transition: var(--transicao-media);
+    cursor: pointer;
+    align-items: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.company-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--ouro);
+    box-shadow: 0 10px 25px rgba(197, 160, 89, 0.12);
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.company-card.hidden {
+    display: none;
+}
+
+/* Conteiner da esquerda (Mídia) */
+.media-container {
+    flex-shrink: 0;
+    width: 240px;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #0a0a0a;
+}
+
+/* Imagem e Vídeo da Esquerda */
+.company-logo, 
+.record-video {
+    width: 100%;
+    height: 135px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transicao-media);
+}
+
+.company-card:hover .company-logo {
+    transform: scale(1.03);
+}
+
+/* Galeria Compacta (2x2) */
+.record-gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    width: 100%;
+    position: relative;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.gallery-counter {
+    position: absolute;
+    bottom: 6px;
+    right: 6px;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    color: var(--ouro-brilhante);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Textos da Direita */
+.content-container {
+    flex: 1;
+    min-width: 0;
+}
+
+.category-tag {
+    display: inline-block;
+    background-color: rgba(197, 160, 89, 0.08);
+    color: var(--ouro-brilhante);
+    padding: 4px 12px;
+    border-radius: 7px;
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    border: 1px solid rgba(197, 160, 89, 0.15);
+    letter-spacing: 0.5px;
+}
+
+.company-title {
+    font-family: var(--font-display);
+    color: var(--creme);
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    transition: var(--transicao-media);
+    font-style: italic;
+}
+
+.company-card:hover .company-title {
+    color: var(--ouro);
+}
+
+.company-info {
+    color: var(--creme-muted);
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    line-height: 1.5;
+}
+
+/* Badge de Tipo (Vídeo / Imagem) */
+.record-type {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: var(--gradient-ouro);
+    color: var(--terra);
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: var(--font-accent);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 10;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+/* ==========================================================================
+   ESTILIZAÇÃO DO MODAL (Conserto Inteligente das Proporções e Centralização)
+   ========================================================================== */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    
+    /* Força o alinhamento no centro exato da tela */
+    display: none; 
+    align-items: center;
+    justify-content: center;
+    
+    z-index: 9999;
+    padding: 20px;
+    backdrop-filter: var(--glass-blur);
+    overflow: hidden; 
+}
+
+.modal-content {
+    background-color: var(--terra-card);
+    border: var(--border-glow);
+    border-radius: 16px;
+    max-width: 800px; /* Reduzido levemente para melhor harmonia visual */
+    width: 100%;
+    max-height: 92vh; /* Impede que o modal passe da altura da tela */
+    position: relative;
+    padding: 50px 24px 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto; /* Se o texto/descrição for grande, cria scroll apenas no texto */
+}
+
+/* Botão de Fechar */
+.modal .close {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    color: var(--creme-muted);
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: var(--transicao-media);
+    z-index: 110;
+}
+
+.modal .close:hover {
+    color: var(--ouro);
+}
+
+/* Setas de Navegação Traseira/Dianteira */
+.modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--ouro);
+    font-size: 24px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    z-index: 105;
+    transition: var(--transicao-media);
+    user-select: none;
+}
+
+.modal-nav:hover {
+    background: var(--gradient-ouro);
+    color: var(--terra);
+    box-shadow: var(--shadow-glow);
+}
+
+.modal-nav.prev { left: 16px; }
+.modal-nav.next { right: 16px; }
+
+/* Caixa Isoladora de Mídia */
+.modal-media-wrapper {
+    width: 100%;
+    height: 50vh; /* Ajustado para dar mais espaço à descrição embaixo */
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #080808;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    position: relative;
+}
+
+/* Encaixe perfeito para fotos verticais ou horizontais */
+.modal-image, 
+.modal-video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; 
+}
+
+.modal-counter {
+    color: var(--creme-muted);
+    font-family: var(--font-accent);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin-top: 8px;
+}
+
+/* Estilo para a descrição dentro do Modal */
+.modal-description {
+    color: var(--creme);
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    line-height: 1.5;
+    text-align: center;
+    margin-top: 10px;
+    max-width: 100%;
+}
+/* Responsividade para Telas Menores (Empilha o card em mobile) */
+@media (max-width: 768px) {
+    .company-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+    }
+    .media-container {
+        width: 100%;
+    }
+    .company-logo, .record-video {
+        height: 180px;
+    }
+    .gallery-image {
+        height: 90px;
+    }
+    .modal-media-wrapper {
+        height: 45vh;
+    }
+    .modal-nav {
+        padding: 8px 12px;
+        font-size: 18px;
+    }
+}

@@ -1,4 +1,5 @@
-window.addEventListener('load', () => {
+// Alterado de 'load' para 'DOMContentLoaded' para a animação começar mais rápido e fluida
+document.addEventListener('DOMContentLoaded', () => {
     
     // 1. Inicia AOS (com tratamento para não travar se não encontrar a biblioteca)
     if (typeof AOS !== 'undefined') {
@@ -25,7 +26,7 @@ window.addEventListener('load', () => {
                 setTimeout(() => {
                     const preloader = document.getElementById('preloader');
                     if (preloader) {
-                        preloader.style.transition = 'opacity 0.6s ease'; // Garante a transição suave
+                        preloader.style.transition = 'opacity 0.6s ease'; 
                         preloader.style.opacity = '0';
                         setTimeout(() => {
                             preloader.style.display = 'none';
@@ -37,7 +38,7 @@ window.addEventListener('load', () => {
         }, 200);
     }
 
-    // 4. Particles (Apenas executa se a biblioteca foi carregada e o elemento existe)
+    // 4. Particles 
     if (typeof particlesJS !== 'undefined' && document.getElementById('particles-js')) {
         particlesJS("particles-js", {
             "particles": {
