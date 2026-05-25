@@ -37,7 +37,6 @@ header.scrolled {
 .logo-text h1 {
     font-family: var(--font-main);
     font-size: 1.1rem;
-    letter-spacing: 6px;
     text-transform: uppercase;
 }
 
