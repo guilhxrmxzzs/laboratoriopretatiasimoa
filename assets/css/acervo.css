@@ -626,3 +626,108 @@ footer::before {
         font-size: 18px;
     }
 }
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE COMPLETA E CORREÇÃO DO FOOTER)
+   ========================================================================= */
+
+@media (max-width: 992px) {
+    /* Em tablets, mudamos o grid para 2 colunas mais amplas */
+    .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .hero h2 { font-size: 3.5rem; }
+}
+
+@media (max-width: 768px) {
+    header { padding: 15px 5%; }
+    
+    /* Ativando o botão hambúrguer */
+    .menu-toggle { display: block; }
+    
+    /* Transformando o menu em uma gaveta lateral/topo responsiva */
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 70%;
+        height: 100vh;
+        background: rgba(10, 10, 10, 0.98);
+        border-left: 1px solid rgba(197, 160, 89, 0.2);
+        backdrop-filter: blur(15px);
+        padding: 100px 40px;
+        transition: 0.4s ease;
+        z-index: 4999;
+    }
+    
+    /* Classe para abrir o menu via Javascript */
+    nav.active { right: 0; }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 30px;
+        margin-left: 0;
+    }
+    nav a { font-size: 1rem; }
+
+    .logo-text h1 { font-size: 0.9rem; letter-spacing: 3px; }
+    .sub-logo { font-size: 0.7rem; }
+
+    .section-container { padding: 60px 5%; }
+    .section-header h2 { font-size: 1.8rem; }
+    .section-header p { font-size: 1.1rem; }
+
+    /* Ajuste do formulário */
+    .form-row { grid-template-columns: 1fr; gap: 20px; }
+
+    /* ==========================================================================
+       CORREÇÃO DO RODAPÉ (FOOTER) PARA TELEMÓVEL
+       ========================================================================= */
+    footer {
+        /* Remove os 10% de padding que esmagavam o conteúdo nas laterais */
+        padding: 60px 24px 30px; 
+    }
+
+    .footer-top {
+        /* Desativa o Grid rígido que força colunas coladas */
+        display: flex;
+        flex-direction: column;
+        
+        /* Alinha os blocos verticalmente de forma fluida */
+        align-items: flex-start;
+        gap: 35px;
+        margin-bottom: 40px;
+    }
+
+    .footer-brand {
+        width: 100%;
+    }
+
+    .footer-brand p {
+        /* Permite que o texto ocupe toda a largura disponível do ecrã do telemóvel */
+        max-width: 100%; 
+        font-size: 0.95rem;
+    }
+
+    .footer-col {
+        width: 100%;
+    }
+
+    .footer-col h5 {
+        /* Reduz ligeiramente a margem inferior para equilibrar o design vertical */
+        margin-bottom: 12px; 
+    }
+
+    .footer-bottom {
+        /* Força a linha de direitos de autor a empilhar corretamente no centro */
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding-top: 30px;
+    }
+
+    .copyright-text {
+        text-align: center;
+        width: 100%;
+    }
+}
