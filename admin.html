@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório de História Preta Tia Simoa</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/global.css">
+    <style>
+        /* Estilização rápida e integrada com o tema do acervo */
+        body {
+            background-color: #000;
+            color: var(--creme);
+            font-family: var(--font-main);
+            padding: 40px 5%;
+        }
+        .admin-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+        .admin-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: var(--ouro);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .admin-header p {
+            text-align: center;
+            color: var(--creme-muted);
+            font-size: 0.95rem;
+            margin-bottom: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .form-group label {
+            font-family: var(--font-accent);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--ouro-brilhante);
+        }
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
+            background: #0a0a0a;
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px;
+            color: #fff;
+            border-radius: 4px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+        .form-group input:focus, 
+        .form-group textarea:focus, 
+        .form-group select:focus {
+            border-color: var(--ouro);
+            outline: none;
+            box-shadow: 0 0 10px rgba(197, 160, 89, 0.1);
+        }
+        /* Estilização específica para o campo de texto dinâmico de nova categoria */
+        #nova-categoria {
+            margin-top: 6px;
+            border-style: dashed;
+            border-color: rgba(197, 160, 89, 0.4);
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #c5a059 0%, #704b05 100%);
+            border: none;
+            color: #000;
+            font-family: var(--font-accent);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
+        }
+        #status-mensagem {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+        }
+        .status-sucesso { color: #2ecc71; }
+        .status-erro { color: #e74c3c; }
+        .status-loading { color: #f1c40f; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h2>Inserir no Acervo</h2>
+            <p>Alimente a memória em movimento do laboratório.</p>
+        </div>
+
+        <form id="upload-form">
+            <div class="form-group">
+                <label for="titulo">Título da Ação/Evento</label>
+                <input type="text" id="titulo" placeholder="Ex: Oficina de Letramento Racial" required>
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição / Legenda</label>
+                <textarea id="descricao" rows="4" placeholder="Escreve um resumo detalhado sobre o momento..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data da Ação</label>
+                <input type="date" id="data" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" required>
+                    <option value="" disabled selected>A carregar categorias existentes...</option>
+                </select>
+                <input type="text" id="nova-categoria" placeholder="Escreva o nome da nova categoria..." style="display: none;">
+            </div>
+
+            <div class="form-group">
+                <label for="arquivo">Ficheiros (Fotos / Vídeos)</label>
+                <input type="file" id="arquivo" accept="image/*,video/*" multiple required>
+            </div>
+
+            <button type="submit" class="btn-submit">Publicar no Memorial</button>
+        </form>
+
+        <div id="status-mensagem"></div>
+    </div>
+
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
