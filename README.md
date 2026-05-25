@@ -43,9 +43,9 @@ O projeto foi construído utilizando tecnologias modernas de front-end para gara
 
 ## 📦 Como Executar o Projeto Localmente
 
-Como o projeto é composto por arquivos estáticos de front-end (HTML, CSS, JS), ele pode ser executado facilmente de duas formas:
+Como o projeto é composto por arquivos estáticos de front-end (HTML, CSS, JS), ele pode ser executado facilmente:
 
-### Opção 1: Abrindo diretamente
+### Abrindo diretamente
 1. Faça o clone do repositório:
    ```bash
    git clone [https://github.com/guilhxrmxzzs/laboratoriopretatiasimoa.git](https://github.com/guilhxrmxzzs/laboratoriopretatiasimoa.git)
