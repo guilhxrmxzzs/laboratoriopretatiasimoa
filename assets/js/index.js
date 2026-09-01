@@ -1,12 +1,15 @@
 const navLinks = document.querySelectorAll('nav a');
 const sections = document.querySelectorAll('section');
-const conteudoEquipe = document.getElementById('conteudoEquipe');
 const btnAcervo = document.querySelector('.btn-acervo');
 
+// Controle do Scroll (Header, Menu Ativo e Efeito Parallax)
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (window.scrollY > 100) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
+    
+    if (header) {
+        if (window.scrollY > 100) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    }
 
     let current = '';
     sections.forEach(section => {
@@ -30,6 +33,8 @@ window.addEventListener('scroll', () => {
         heroTitle.style.opacity = 1 - (scroll / 800);
     }
 });
+
+// Controle do Accordion (Sanfonas)
 document.querySelectorAll('.accordion-trigger').forEach(item => {
     item.addEventListener('click', () => {
         const content = item.nextElementSibling;
@@ -43,53 +48,24 @@ document.querySelectorAll('.accordion-trigger').forEach(item => {
         }
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const btnVerMais = document.getElementById("btnVerMais");
-    const cardsOcultos = document.querySelectorAll(".card-aluno.oculto");
 
-    if (btnVerMais) {
-        btnVerMais.addEventListener("click", function () {
-            // Verifica se os cards já estão visíveis
-            const estaAberto = btnVerMais.classList.contains("ativo");
+// Redirecionamento do Botão Acervo
+if (btnAcervo) {
+    btnAcervo.addEventListener('click', () => {
+        window.location.href = 'acervo.html';
+    });
+}
 
-            cardsOcultos.forEach((card, index) => {
-                if (!estaAberto) {
-                    // Adiciona um pequeno atraso em cascata para cada card aparecer individualmente
-                    setTimeout(() => {
-                        card.classList.add("mostrar-card");
-                    }, index * 100); 
-                } else {
-                    card.classList.remove("mostrar-card");
-                }
-            });
-
-            // Altera o texto e o estado do botão
-            if (!estaAberto) {
-                btnVerMais.classList.add("ativo");
-                btnVerMais.innerHTML = 'Ver Menos <span class="seta-btn">▼</span>';
-            } else {
-                btnVerMais.classList.remove("ativo");
-                btnVerMais.innerHTML = 'Ver Todos <span class="seta-btn">▼</span>';
-                
-                // Rola a tela suavemente de volta para o topo da seção se o usuário fechar
-                document.getElementById("equipe").scrollIntoView({ behavior: "smooth" });
-            }
-        });
-    }
-});
-
-btnAcervo.addEventListener('click', () => {
-    window.location.href = 'acervo.html';
-});
-
+// Funções executadas após o carregamento da página
 document.addEventListener("DOMContentLoaded", function() {
+    
+    // 1. Menu Mobile (Responsivo)
     const menuToggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('nav');
 
     if (menuToggle && nav) {
         menuToggle.addEventListener('click', function() {
             nav.classList.toggle('active');
-            // Altera o ícone de hambúrguer para um 'X' quando aberto
             if (nav.classList.contains('active')) {
                 menuToggle.textContent = '✕';
             } else {
@@ -97,4 +73,41 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
+
+    // 2. Carrossel da Equipe
+    const containerEquipe = document.getElementById("containerAlunos");
+    const btnPrev = document.getElementById("btnPrevEquipe");
+    const btnNext = document.getElementById("btnNextEquipe");
+
+    if (containerEquipe && btnPrev && btnNext) {
+        // Define a quantidade de rolagem por clique (largura do card 280px + gap 24px)
+        const scrollAmount = 304; 
+
+        btnPrev.addEventListener("click", () => {
+            containerEquipe.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+        });
+
+        btnNext.addEventListener("click", () => {
+            containerEquipe.scrollBy({ left: scrollAmount, behavior: "smooth" });
+        });
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const pilares = document.querySelectorAll('.pilar-card');
+
+    pilares.forEach(pilar => {
+        pilar.addEventListener('click', function() {
+            // Verifica se o card atual já está ativo
+            const isActive = this.classList.contains('ativo');
+
+            // Remove a classe 'ativo' de todos os cards
+            pilares.forEach(p => p.classList.remove('ativo'));
+
+            // Se o card não estava ativo antes do clique, adiciona a classe
+            if (!isActive) {
+                this.classList.add('ativo');
+            }
+        });
+    });
 });

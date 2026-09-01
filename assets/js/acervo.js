@@ -18,9 +18,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ==========================================================================
-// CONFIGURAÇÃO E INTEGRAÇÃO COM O SUPABASE
-// ==========================================================================
 let companyData = []; 
 let currentGallery = [];
 let currentImageIndex = 0;
@@ -28,7 +25,6 @@ let currentImageIndex = 0;
 const SUPABASE_URL = "https://nfbmnxdekqdfcxuqzetk.supabase.co"; 
 const SUPABASE_ANON_KEY = "sb_publishable_-TJLUtO4VHDUAoq7fLkbvA_sdy-5eBe";
 
-// Função auxiliar para formatar a string de data (Ex: "210526" vira "21/05/26")
 function formatarDataComBarras(dataBruta) {
     if (!dataBruta || dataBruta.length !== 6) return dataBruta;
     const dia = dataBruta.substring(0, 2);
@@ -37,7 +33,6 @@ function formatarDataComBarras(dataBruta) {
     return `${dia}/${mes}/${ano}`;
 }
 
-// Buscar os dados direto da tabela LabHistoriaAcervo
 async function carregarDadosDoBanco() {
     try {
         const response = await fetch(`${SUPABASE_URL}/rest/v1/LabHistoriaAcervo?select=*`, {
@@ -51,17 +46,14 @@ async function carregarDadosDoBanco() {
         if (!response.ok) throw new Error("Erro ao carregar dados do acervo.");
 
         const dadosDoBanco = await response.json();
-        console.log("Dados brutos carregados do banco:", dadosDoBanco);
         
         companyData = dadosDoBanco
             .filter(item => {
-                // FILTRO DE SEGURANÇA: Ignora dados de testes lixo (Como o teste "DAMLN")
                 const titulo = item.nome || item.name;
                 if (!titulo || titulo === "DAMLN" || titulo.includes("lnknafl")) return false;
                 return true;
             })
             .map(item => {
-                // Mapeamento dos campos baseado exatamente nas colunas em português do banco
                 let listaMidias = [];
                 if (item["mídia midiática"]) {
                     listaMidias = Array.isArray(item["mídia midiática"]) ? item["mídia midiática"] : JSON.parse(item["mídia midiática"] || "[]");
@@ -69,7 +61,6 @@ async function carregarDadosDoBanco() {
                     listaMidias = Array.isArray(item.media) ? item.media : JSON.parse(item.media || "[]");
                 }
 
-                // CORREÇÃO DINÂMICA DE URLS COM ESPAÇO / TRAÇO
                 listaMidias = listaMidias.map(url => {
                     if (typeof url === 'string') {
                         if (url.includes('letramento-racial')) {
@@ -97,7 +88,6 @@ async function carregarDadosDoBanco() {
     }
 }
 
-// Criar Botões de Filtro Baseados nas Categorias Existentes
 function createFilterButtons() {
     const filterContainer = document.getElementById('filter-buttons');
     if (!filterContainer) return;
@@ -118,7 +108,6 @@ function createFilterButtons() {
     });
 }
 
-// Filtrar os Registros no Ecrã
 function filterRecords(category) {
     document.querySelectorAll('.filter-btn').forEach(btn => {
         btn.classList.remove('active');
@@ -137,7 +126,6 @@ function filterRecords(category) {
     });
 }
 
-// Abrir Modal da Galeria de Imagens
 function openGallery(images, startIndex = 0) {
     currentGallery = images;
     currentImageIndex = startIndex;
@@ -145,7 +133,6 @@ function openGallery(images, startIndex = 0) {
     document.getElementById('gallery-modal').style.display = 'flex';
 }
 
-// Exibir Imagem ou Vídeo no Modal Ativo
 function showModalImage() {
     const modalImage = document.getElementById('modal-image');
     const modalVideo = document.getElementById('modal-video');
@@ -170,7 +157,6 @@ function showModalImage() {
     }
 }
 
-// Navegar pelas fotos na Galeria Expandida
 function navigateGallery(direction) {
     if (direction === 'next') {
         currentImageIndex = (currentImageIndex + 1) % currentGallery.length;
@@ -180,7 +166,6 @@ function navigateGallery(direction) {
     showModalImage();
 }
 
-// Renderizar os Cards Dinamicamente na Página
 function buildCompanyShowcase() {
     const companyContainer = document.getElementById('company-container');
     if (!companyContainer) return;
@@ -203,7 +188,6 @@ function buildCompanyShowcase() {
         const ehVideo = record.type === 'video' || (typeof primeiraMidia === 'string' && primeiraMidia.endsWith('.mp4'));
 
         if (ehVideo) {
-            // Layout corrigido com overlay e preview funcional para o vídeo
             mediaContent = `
                 <div class="video-preview-wrapper" style="position: relative; width: 100%; height: 100%; min-height: 200px; background: #000;">
                     <video src="${primeiraMidia}" class="record-video" preload="metadata" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px; display: block;"></video>
@@ -223,7 +207,6 @@ function buildCompanyShowcase() {
             mediaContent = `<div class="no-media-placeholder">📁 Sem Mídias</div>`;
         }
 
-        // Aplicação das barras na data visual
         const dataFormatada = formatarDataComBarras(record.date);
 
         companyElement.innerHTML = `
@@ -251,7 +234,6 @@ function buildCompanyShowcase() {
     });
 }
 
-// Inicializar Ouvintes de Eventos dos Modais
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('gallery-modal');
     const closeBtn = document.querySelector('.close');
