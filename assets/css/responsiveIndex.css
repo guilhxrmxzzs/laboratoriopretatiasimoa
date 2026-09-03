@@ -67,6 +67,31 @@
         font-size: 1.1rem;
     }
 
+    /* FIX 1: Impede o título do Hero/Laboratório de cortar na tela */
+    .hero h2 {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        word-break: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+
+    /* FIX 2: Correção de alinhamento da imagem e da badge no Mobile */
+    .responsavel-foto-bloco {
+        width: 100%;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    /* Se o elemento da tag "COORDENADORA GERAL" for uma classe própria */
+    .tag-coordenadora, 
+    .responsavel-foto-bloco .badge,
+    .responsavel-foto-bloco span {
+        position: relative;
+        display: inline-block;
+        margin-top: -15px; /* Puxa a badge para alinhar na base sem sobrepor o centro da foto */
+        z-index: 5;
+    }
+
     .form-row {
         grid-template-columns: 1fr;
         gap: 20px;

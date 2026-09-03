@@ -1,10 +1,13 @@
+// --- NAVEGAÇÃO E HEADER ---
 const navLinks = document.querySelectorAll('nav a');
 const sections = document.querySelectorAll('section');
 
 window.addEventListener('scroll', () => {
     const header = document.getElementById('header');
-    if (window.scrollY > 100) header.classList.add('scrolled');
-    else header.classList.remove('scrolled');
+    if (header) {
+        if (window.scrollY > 100) header.classList.add('scrolled');
+        else header.classList.remove('scrolled');
+    }
 
     let current = '';
     sections.forEach(section => {
@@ -18,24 +21,41 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// --- VARIÁVEIS GLOBAIS ---
 let companyData = []; 
 let currentGallery = [];
 let currentImageIndex = 0;
 
-const SUPABASE_URL = "https://nfbmnxdekqdfcxuqzetk.supabase.co"; 
-const SUPABASE_ANON_KEY = "sb_publishable_-TJLUtO4VHDUAoq7fLkbvA_sdy-5eBe";
+// Credenciais ativas do Supabase
+const SUPABASE_URL = "https://hcebjldgynjivmktkkwf.supabase.co"; 
+const SUPABASE_ANON_KEY = "sb_publishable_30HxPG9n5fu-xGag_qoA3A_DsRGgF6z";
+const NOME_TABELA = "acervo";
 
+// Função para formatar datas (YYYY-MM-DD -> DD/MM/YYYY)
 function formatarDataComBarras(dataBruta) {
-    if (!dataBruta || dataBruta.length !== 6) return dataBruta;
-    const dia = dataBruta.substring(0, 2);
-    const mes = dataBruta.substring(2, 4);
-    const ano = dataBruta.substring(4, 6);
-    return `${dia}/${mes}/${ano}`;
+    if (!dataBruta) return '';
+    
+    // Formato de input do formulário (2023-10-15)
+    if (dataBruta.includes('-')) {
+        const [ano, mes, dia] = dataBruta.split('-');
+        return `${dia}/${mes}/${ano}`;
+    }
+    
+    // Formato legado de 6 dígitos (DDMMYY)
+    if (dataBruta.length === 6) {
+        const dia = dataBruta.substring(0, 2);
+        const mes = dataBruta.substring(2, 4);
+        const ano = dataBruta.substring(4, 6);
+        return `${dia}/${mes}/${ano}`;
+    }
+
+    return dataBruta;
 }
 
+// --- BUSCA DE DADOS NO SUPABASE ---
 async function carregarDadosDoBanco() {
     try {
-        const response = await fetch(`${SUPABASE_URL}/rest/v1/LabHistoriaAcervo?select=*`, {
+        const response = await fetch(`${SUPABASE_URL}/rest/v1/${NOME_TABELA}?select=*&order=data_acao.desc`, {
             method: 'GET',
             headers: {
                 'apikey': SUPABASE_ANON_KEY,
@@ -43,42 +63,31 @@ async function carregarDadosDoBanco() {
             }
         });
 
-        if (!response.ok) throw new Error("Erro ao carregar dados do acervo.");
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.status} ${response.statusText}`);
+        }
 
         const dadosDoBanco = await response.json();
         
-        companyData = dadosDoBanco
-            .filter(item => {
-                const titulo = item.nome || item.name;
-                if (!titulo || titulo === "DAMLN" || titulo.includes("lnknafl")) return false;
-                return true;
-            })
-            .map(item => {
-                let listaMidias = [];
-                if (item["mídia midiática"]) {
-                    listaMidias = Array.isArray(item["mídia midiática"]) ? item["mídia midiática"] : JSON.parse(item["mídia midiática"] || "[]");
-                } else if (item.media) {
-                    listaMidias = Array.isArray(item.media) ? item.media : JSON.parse(item.media || "[]");
-                }
+        companyData = dadosDoBanco.map(item => {
+            let listaMidias = [];
 
-                listaMidias = listaMidias.map(url => {
-                    if (typeof url === 'string') {
-                        if (url.includes('letramento-racial')) {
-                            return url.replace(/letramento-racial/g, 'Letramento%20Racial');
-                        }
-                    }
-                    return url;
-                });
+            // Suporta o novo campo 'arquivos' e retrocompatibilidade
+            const midiaBruta = item.arquivos || item["mídia midiática"] || item.media;
 
-                return {
-                    name: item.nome || item.name || "Sem título",
-                    description: item.description || item.descricao || "Sem descrição",
-                    category: item.categoria || item.category || "Geral",
-                    type: item["tipo tipo"] || item.type || 'gallery',
-                    date: item.data || item.date || "",
-                    media: listaMidias
-                };
-            });
+            if (midiaBruta) {
+                listaMidias = Array.isArray(midiaBruta) ? midiaBruta : JSON.parse(midiaBruta || "[]");
+            }
+
+            return {
+                name: item.titulo || item.nome || item.name || "Sem título",
+                description: item.descricao || item.description || "Sem descrição",
+                category: item.categoria || item.category || "Geral",
+                type: item.tipo || item.type || 'gallery',
+                date: item.data_acao || item.data || item.date || "",
+                media: listaMidias
+            };
+        });
 
         createFilterButtons();
         buildCompanyShowcase();
@@ -88,6 +97,7 @@ async function carregarDadosDoBanco() {
     }
 }
 
+// --- CRIAÇÃO DOS BOTÕES DE FILTRO ---
 function createFilterButtons() {
     const filterContainer = document.getElementById('filter-buttons');
     if (!filterContainer) return;
@@ -126,11 +136,13 @@ function filterRecords(category) {
     });
 }
 
+// --- MODAL DE GALERIA ---
 function openGallery(images, startIndex = 0) {
     currentGallery = images;
     currentImageIndex = startIndex;
     showModalImage();
-    document.getElementById('gallery-modal').style.display = 'flex';
+    const modal = document.getElementById('gallery-modal');
+    if (modal) modal.style.display = 'flex';
 }
 
 function showModalImage() {
@@ -141,17 +153,20 @@ function showModalImage() {
     if (!currentGallery || currentGallery.length === 0) return;
     const currentItem = currentGallery[currentImageIndex];
 
-    if (typeof currentItem === 'string' && (currentItem.endsWith('.mp4') || currentItem.includes('video'))) {
+    const ehVideo = typeof currentItem === 'string' && 
+        (currentItem.endsWith('.mp4') || currentItem.endsWith('.webm') || currentItem.includes('video'));
+
+    if (ehVideo) {
         modalImage.style.display = 'none';
         modalVideo.style.display = 'flex';
         modalVideo.src = currentItem;
         modalVideo.load();
         modalVideo.play();
-        counter.textContent = 'Vídeo';
+        counter.textContent = `Vídeo ${currentImageIndex + 1} / ${currentGallery.length}`;
     } else {
         modalImage.style.display = 'flex';
         modalVideo.style.display = 'none';
-        if(modalVideo.pause) modalVideo.pause();
+        if (modalVideo.pause) modalVideo.pause();
         modalImage.src = currentItem;
         counter.textContent = `${currentImageIndex + 1} / ${currentGallery.length}`;
     }
@@ -166,6 +181,7 @@ function navigateGallery(direction) {
     showModalImage();
 }
 
+// --- RENDERIZAÇÃO DOS CARDS NO GRID ---
 function buildCompanyShowcase() {
     const companyContainer = document.getElementById('company-container');
     if (!companyContainer) return;
@@ -173,7 +189,7 @@ function buildCompanyShowcase() {
     companyContainer.innerHTML = '';
 
     if (companyData.length === 0) {
-        companyContainer.innerHTML = `<div class="no-media-placeholder" style="grid-column: 1/-1; padding: 40px;">Nenhum evento registrado encontrado no acervo.</div>`;
+        companyContainer.innerHTML = `<div class="no-media-placeholder" style="grid-column: 1/-1; padding: 40px; text-align: center;">Nenhum evento registrado no acervo.</div>`;
         return;
     }
 
@@ -185,7 +201,8 @@ function buildCompanyShowcase() {
 
         let mediaContent = '';
         const primeiraMidia = record.media && record.media[0];
-        const ehVideo = record.type === 'video' || (typeof primeiraMidia === 'string' && primeiraMidia.endsWith('.mp4'));
+        const ehVideo = record.type === 'video' || 
+            (typeof primeiraMidia === 'string' && (primeiraMidia.endsWith('.mp4') || primeiraMidia.endsWith('.webm')));
 
         if (ehVideo) {
             mediaContent = `
@@ -234,6 +251,7 @@ function buildCompanyShowcase() {
     });
 }
 
+// --- EVENTOS INICIAIS ---
 document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('gallery-modal');
     const closeBtn = document.querySelector('.close');
@@ -242,8 +260,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (closeBtn) {
         closeBtn.addEventListener('click', function () {
-            modal.style.display = 'none';
-            document.getElementById('modal-video').pause();
+            if (modal) modal.style.display = 'none';
+            const vid = document.getElementById('modal-video');
+            if (vid) vid.pause();
         });
     }
     if (prevBtn) {
@@ -260,7 +279,8 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('click', function (event) {
         if (event.target === modal) {
             modal.style.display = 'none';
-            document.getElementById('modal-video').pause();
+            const vid = document.getElementById('modal-video');
+            if (vid) vid.pause();
         }
     });
 
@@ -270,7 +290,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (e.key === 'ArrowRight') navigateGallery('next');
             if (e.key === 'Escape') {
                 modal.style.display = 'none';
-                document.getElementById('modal-video').pause();
+                const vid = document.getElementById('modal-video');
+                if (vid) vid.pause();
             }
         }
     });

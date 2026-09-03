@@ -3,43 +3,133 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratório de História Preta Tia Simoa</title>
+    <title>Painel de Administração - Laboratório Tia Simoa</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
+    <!-- SDK DO SUPABASE VIA CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <link rel="stylesheet" href="assets/css/global.css">
     <style>
-        /* Estilização rápida e integrada com o tema do acervo */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #000;
-            color: var(--creme);
-            font-family: var(--font-main);
+            color: var(--creme, #f5f5f5);
+            font-family: var(--font-main, 'Montserrat', sans-serif);
             padding: 40px 5%;
+            margin: 0;
         }
+
+        /* CARD DE LOGIN */
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            margin: 60px auto;
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 35px 30px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* CARD DO PAINEL ADMIN */
         .admin-container {
-            max-width: 600px;
+            width: 100%;
+            max-width: 850px;
             margin: 0 auto;
             background: rgba(20, 20, 20, 0.95);
             border: 1px solid rgba(197, 160, 89, 0.2);
-            padding: 40px;
+            padding: 30px;
             border-radius: 8px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
+
         .admin-header h2 {
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.5rem;
             font-style: italic;
-            color: var(--ouro);
+            color: var(--ouro, #c5a059);
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         .admin-header p {
             text-align: center;
-            color: var(--creme-muted);
+            color: var(--creme-muted, #aaa);
             font-size: 0.95rem;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-logout:hover {
+            background: #e74c3c;
+            color: #fff;
+        }
+
+        /* NAVEGAÇÃO POR ABAS */
+        .admin-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding-bottom: 10px;
+        }
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-family: var(--font-accent, 'Montserrat', sans-serif);
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background: linear-gradient(135deg, #c5a059 0%, #704b05 100%);
+            color: #000;
+            border-color: #c5a059;
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* FORMULÁRIOS */
         .form-group {
             margin-bottom: 20px;
             display: flex;
@@ -47,32 +137,29 @@
             gap: 8px;
         }
         .form-group label {
-            font-family: var(--font-accent);
             font-size: 0.85rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--ouro-brilhante);
+            color: var(--ouro-brilhante, #ffd700);
         }
         .form-group input, 
         .form-group textarea, 
         .form-group select {
+            width: 100%;
             background: #0a0a0a;
             border: 1px solid rgba(255,255,255,0.1);
             padding: 12px;
             color: #fff;
             border-radius: 4px;
-            font-family: var(--font-main);
             font-size: 1rem;
             transition: 0.3s;
         }
         .form-group input:focus, 
         .form-group textarea:focus, 
         .form-group select:focus {
-            border-color: var(--ouro);
+            border-color: var(--ouro, #c5a059);
             outline: none;
-            box-shadow: 0 0 10px rgba(197, 160, 89, 0.1);
         }
-        /* Estilização específica para o campo de texto dinâmico de nova categoria */
         #nova-categoria {
             margin-top: 6px;
             border-style: dashed;
@@ -84,73 +171,491 @@
             background: linear-gradient(135deg, #c5a059 0%, #704b05 100%);
             border: none;
             color: #000;
-            font-family: var(--font-accent);
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             cursor: pointer;
             border-radius: 4px;
             transition: 0.3s;
-            margin-top: 10px;
         }
         .btn-submit:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(197, 160, 89, 0.4);
         }
-        #status-mensagem {
+
+        /* CARDS DE LISTAGEM (DENÚNCIAS E AGENDAMENTOS) */
+        .card-item {
+            background: #0f0f0f;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            gap: 10px;
+        }
+        .card-title {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.1rem;
+            word-break: break-word;
+        }
+        .card-date {
+            color: #888;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .card-body p {
+            margin: 6px 0;
+            color: #ddd;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            font-family: var(--font-accent);
+            word-break: break-word;
+        }
+        .card-body strong {
+            color: #c5a059;
+        }
+        .btn-file {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 14px;
+            background: #222;
+            border: 1px solid #c5a059;
+            color: #ffd700;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .btn-file:hover {
+            background: #c5a059;
+            color: #000;
+        }
+
+        .status-mensagem {
             margin-top: 20px;
             text-align: center;
             font-size: 0.95rem;
-            letter-spacing: 1px;
         }
         .status-sucesso { color: #2ecc71; }
         .status-erro { color: #e74c3c; }
         .status-loading { color: #f1c40f; }
+
+        /* REGRAS DE RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+
+            .login-container {
+                margin: 30px auto;
+                padding: 25px 20px;
+            }
+
+            .admin-container {
+                padding: 20px 15px;
+            }
+
+            .admin-header h2 {
+                font-size: 2rem;
+            }
+
+            .admin-tabs {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .tab-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.8rem;
+            }
+
+            .card-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-file {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .header-top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .btn-logout {
+                width: 100%;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <div class="admin-container">
+    <!-- FORMULÁRIO DE LOGIN (EXIBIDO APENAS SE NÃO ESTIVER AUTENTICADO) -->
+    <div id="login-container" class="login-container">
         <div class="admin-header">
-            <h2>Inserir no Acervo</h2>
-            <p>Alimente a memória em movimento do laboratório.</p>
+            <h2>Acesso Restrito</h2>
+            <p>Insira suas credenciais para gerenciar o painel.</p>
         </div>
-
-        <form id="upload-form">
+        <form id="login-form">
             <div class="form-group">
-                <label for="titulo">Título da Ação/Evento</label>
-                <input type="text" id="titulo" placeholder="Ex: Oficina de Letramento Racial" required>
+                <label for="login-email">E-mail</label>
+                <input type="email" id="login-email" placeholder="admin@laboratorio.com" required>
             </div>
-
             <div class="form-group">
-                <label for="descricao">Descrição / Legenda</label>
-                <textarea id="descricao" rows="4" placeholder="Escreve um resumo detalhado sobre o momento..." required></textarea>
+                <label for="login-password">Senha</label>
+                <input type="password" id="login-password" placeholder="••••••••" required>
             </div>
-
-            <div class="form-group">
-                <label for="data">Data da Ação</label>
-                <input type="date" id="data" required>
-            </div>
-
-            <div class="form-group">
-                <label for="categoria">Categoria</label>
-                <select id="categoria" required>
-                    <option value="" disabled selected>A carregar categorias existentes...</option>
-                </select>
-                <input type="text" id="nova-categoria" placeholder="Escreva o nome da nova categoria..." style="display: none;">
-            </div>
-
-            <div class="form-group">
-                <label for="arquivo">Ficheiros (Fotos / Vídeos)</label>
-                <input type="file" id="arquivo" accept="image/*,video/*" multiple required>
-            </div>
-
-            <button type="submit" class="btn-submit">Publicar no Memorial</button>
+            <button type="submit" id="btn-login" class="btn-submit">Entrar no Painel</button>
         </form>
-
-        <div id="status-mensagem"></div>
+        <div id="login-status" class="status-mensagem"></div>
     </div>
 
-    <script src="assets/js/admin.js"></script>
+    <!-- PAINEL ADMINISTRATIVO (PROTEGIDO POR LOGIN) -->
+    <div id="admin-container" class="admin-container" style="display: none;">
+        <div class="admin-header">
+            <div class="header-top">
+                <span id="user-email-display" style="font-size: 0.8rem; color: #888;"></span>
+                <button id="btn-logout" class="btn-logout"><i class="fas fa-sign-out-alt"></i> Sair</button>
+            </div>
+            <h2>Painel do Laboratório</h2>
+            <p>Gerencie o acervo, denúncias e agendamentos recebidos.</p>
+        </div>
+
+        <!-- MENU DE NAVEGAÇÃO POR ABAS -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="trocarAba('tab-acervo', this)">
+                <i class="fas fa-plus-circle"></i> Novo Acervo
+            </button>
+            <button class="tab-btn" onclick="trocarAba('tab-denuncias', this); carregarDenuncias();">
+                <i class="fas fa-exclamation-triangle"></i> Denúncias
+            </button>
+            <button class="tab-btn" onclick="trocarAba('tab-agendamentos', this); carregarAgendamentos();">
+                <i class="fas fa-calendar-alt"></i> Agendamentos
+            </button>
+        </div>
+
+        <!-- ABA 1: INSERIR NO ACERVO -->
+        <div id="tab-acervo" class="tab-content active">
+            <form id="upload-form">
+                <div class="form-group">
+                    <label for="titulo">Título da Ação/Evento</label>
+                    <input type="text" id="titulo" placeholder="Ex: Oficina de Letramento Racial" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição / Legenda</label>
+                    <textarea id="descricao" rows="4" placeholder="Escreva um resumo detalhado sobre o momento..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="data">Data da Ação</label>
+                    <input type="date" id="data" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" required>
+                        <option value="" disabled selected>A carregar categorias...</option>
+                    </select>
+                    <input type="text" id="nova-categoria" placeholder="Escreva o nome da nova categoria..." style="display: none;">
+                </div>
+
+                <div class="form-group">
+                    <label for="arquivo">Ficheiros (Fotos / Vídeos)</label>
+                    <input type="file" id="arquivo" accept="image/*,video/*" multiple required>
+                </div>
+
+                <button type="submit" id="btn-salvar" class="btn-submit">Publicar no Memorial</button>
+            </form>
+            <div id="status-mensagem" class="status-mensagem"></div>
+        </div>
+
+        <!-- ABA 2: VER DENÚNCIAS -->
+        <div id="tab-denuncias" class="tab-content">
+            <div id="lista-denuncias">
+                <p class="status-loading"><i class="fas fa-spinner fa-spin"></i> Carregando denúncias...</p>
+            </div>
+        </div>
+
+        <!-- ABA 3: VER AGENDAMENTOS -->
+        <div id="tab-agendamentos" class="tab-content">
+            <div id="lista-agendamentos">
+                <p class="status-loading"><i class="fas fa-spinner fa-spin"></i> Carregando agendamentos...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Conexão Supabase
+        const SUPABASE_URL = 'https://hcebjldgynjivmktkkwf.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_30HxPG9n5fu-xGag_qoA3A_DsRGgF6z';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- AUTENTICAÇÃO E CONTROLE DE SESSÃO ---
+        const loginContainer = document.getElementById('login-container');
+        const adminContainer = document.getElementById('admin-container');
+        const loginForm = document.getElementById('login-form');
+        const loginStatus = document.getElementById('login-status');
+        const userEmailDisplay = document.getElementById('user-email-display');
+        const btnLogout = document.getElementById('btn-logout');
+
+        function gerenciarSessao(session) {
+            if (session) {
+                loginContainer.style.display = 'none';
+                adminContainer.style.display = 'block';
+                userEmailDisplay.innerText = session.user.email;
+                carregarCategorias();
+            } else {
+                loginContainer.style.display = 'block';
+                adminContainer.style.display = 'none';
+                userEmailDisplay.innerText = '';
+            }
+        }
+
+        // Monitorar mudança no estado do usuário (login/logout/sessão ativa)
+        supabaseClient.auth.onAuthStateChange((_event, session) => {
+            gerenciarSessao(session);
+        });
+
+        // Evento de Login
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            loginStatus.className = 'status-mensagem status-loading';
+            loginStatus.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Autenticando...';
+
+            const { data, error } = await supabaseClient.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) {
+                loginStatus.className = 'status-mensagem status-erro';
+                loginStatus.innerText = 'E-mail ou senha incorretos.';
+            } else {
+                loginStatus.innerText = '';
+            }
+        });
+
+        // Evento de Logout
+        btnLogout.addEventListener('click', async () => {
+            await supabaseClient.auth.signOut();
+        });
+
+        // --- SISTEMA DE ABAS ---
+        function trocarAba(abaId, btn) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            document.getElementById(abaId).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function sanitizarString(str) {
+            return str
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '')
+                .replace(/\s+/g, '-');
+        }
+
+        // 1. GERENCIAMENTO DO ACERVO
+        const selectCategoria = document.getElementById('categoria');
+        const inputNovaCategoria = document.getElementById('nova-categoria');
+
+        async function carregarCategorias() {
+            try {
+                const { data, error } = await supabaseClient.from('acervo').select('categoria');
+                selectCategoria.innerHTML = '';
+                let categoriasUnicas = new Set();
+                
+                if (data) {
+                    data.forEach(item => { if (item.categoria) categoriasUnicas.add(item.categoria); });
+                }
+
+                selectCategoria.appendChild(new Option('Selecione uma categoria...', ''));
+                categoriasUnicas.forEach(cat => selectCategoria.appendChild(new Option(cat, cat)));
+                selectCategoria.appendChild(new Option('+ Adicionar Nova Categoria', '__nova__'));
+            } catch (err) {
+                console.error("Erro ao buscar categorias:", err);
+            }
+        }
+
+        selectCategoria.addEventListener('change', (e) => {
+            const isNova = e.target.value === '__nova__';
+            inputNovaCategoria.style.display = isNova ? 'block' : 'none';
+            inputNovaCategoria.required = isNova;
+            if (isNova) inputNovaCategoria.focus();
+        });
+
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btnSalvar = document.getElementById('btn-salvar');
+            const statusMsg = document.getElementById('status-mensagem');
+
+            btnSalvar.disabled = true;
+            statusMsg.className = 'status-mensagem status-loading';
+            statusMsg.innerHTML = '<i class="fas fa-spinner fa-spin"></i> A enviar arquivos para o acervo...';
+
+            try {
+                const titulo = document.getElementById('titulo').value;
+                const descricao = document.getElementById('descricao').value;
+                const dataAcao = document.getElementById('data').value;
+                const ficheiros = document.getElementById('arquivo').files;
+
+                let categoriaFinal = selectCategoria.value === '__nova__' ? inputNovaCategoria.value.trim() : selectCategoria.value;
+
+                if (!categoriaFinal) throw new Error("Selecione ou digite uma categoria válida.");
+
+                const pastaCategoria = sanitizarString(categoriaFinal);
+                const tituloFormatado = sanitizarString(titulo.trim().split(/\s+/).slice(0, 2).join('-'));
+                const [ano, mes, dia] = dataAcao.split('-');
+                const pastaEvento = `${tituloFormatado}-${dia}${mes}${ano}`;
+
+                const urlsArquivos = [];
+
+                for (let file of ficheiros) {
+                    const nomeArquivoLimpo = `${Date.now()}-${sanitizarString(file.name.split('.')[0])}.${file.name.split('.').pop()}`;
+                    const caminhoArquivo = `${pastaCategoria}/${pastaEvento}/${nomeArquivoLimpo}`;
+
+                    const { error: uploadError } = await supabaseClient.storage
+                        .from('acervo')
+                        .upload(caminhoArquivo, file, { cacheControl: '3600', upsert: false });
+
+                    if (uploadError) throw uploadError;
+
+                    const { data: publicUrlData } = supabaseClient.storage.from('acervo').getPublicUrl(caminhoArquivo);
+                    urlsArquivos.push(publicUrlData.publicUrl);
+                }
+
+                const { error: dbError } = await supabaseClient.from('acervo').insert([{
+                    titulo: titulo,
+                    descricao: descricao,
+                    data_acao: dataAcao,
+                    categoria: categoriaFinal,
+                    arquivos: urlsArquivos
+                }]);
+
+                if (dbError) throw dbError;
+
+                statusMsg.className = 'status-mensagem status-sucesso';
+                statusMsg.innerHTML = '<i class="fas fa-check-circle"></i> Publicado com sucesso no Memorial!';
+                document.getElementById('upload-form').reset();
+                inputNovaCategoria.style.display = 'none';
+                carregarCategorias();
+            } catch (err) {
+                console.error(err);
+                statusMsg.className = 'status-mensagem status-erro';
+                statusMsg.innerText = `Erro: ${err.message || 'Falha ao salvar no Supabase'}`;
+            } finally {
+                btnSalvar.disabled = false;
+            }
+        });
+
+        // 2. CONSULTAR DENÚNCIAS
+        async function carregarDenuncias() {
+            const container = document.getElementById('lista-denuncias');
+            container.innerHTML = '<p class="status-loading"><i class="fas fa-spinner fa-spin"></i> Carregando denúncias...</p>';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('denuncias')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:#aaa;">Nenhuma denúncia registrada até o momento.</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(item => `
+                    <div class="card-item">
+                        <div class="card-header">
+                            <span class="card-title">${item.tipo_infracao || 'Ocorrência'}</span>
+                            <span class="card-date">${item.created_at ? new Date(item.created_at).toLocaleDateString('pt-BR') : ''}</span>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Denunciante:</strong> ${item.nome || 'Denúncia Anônima'}</p>
+                            <p><strong>Descrição:</strong> ${item.descricao || 'Sem descrição'}</p>
+                            ${item.arquivo_url ? `<a href="${item.arquivo_url}" target="_blank" class="btn-file"><i class="fas fa-paperclip"></i> Ver Prova / Anexo</a>` : ''}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<p class="status-erro">Erro ao carregar denúncias. Verifique se a tabela 'denuncias' existe no seu banco de dados.</p>`;
+            }
+        }
+
+        // 3. CONSULTAR AGENDAMENTOS
+        async function carregarAgendamentos() {
+            const container = document.getElementById('lista-agendamentos');
+            container.innerHTML = '<p class="status-loading"><i class="fas fa-spinner fa-spin"></i> Carregando agendamentos...</p>';
+
+            try {
+                const { data, error } = await supabaseClient
+                    .from('agendamentos')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<p style="text-align:center; color:#aaa;">Nenhum agendamento encontrado.</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(item => {
+                    const dataFormatada = item.data_agendamento 
+                        ? item.data_agendamento.split('-').reverse().join('/') 
+                        : 'Não informada';
+                    
+                    const horaFormatada = item.hora_agendamento 
+                        ? `às ${item.hora_agendamento}` 
+                        : '';
+
+                    return `
+                        <div class="card-item">
+                            <div class="card-header">
+                                <span class="card-title">${item.nome || 'Solicitante'}</span>
+                                <span class="card-date">${item.created_at ? new Date(item.created_at).toLocaleDateString('pt-BR') : ''}</span>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>E-mail:</strong> ${item.email || 'Não informado'}</p>
+                                <p><strong>Tipo de Atividade:</strong> ${item.tipo_atividade || 'Não especificado'}</p>
+                                <p><strong>Data Solicitada:</strong> ${dataFormatada} ${horaFormatada}</p>
+                                <p><strong>Observações:</strong> ${item.observacoes || 'Nenhuma observação registrada.'}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } catch (err) {
+                console.error(err);
+                container.innerHTML = `<p class="status-erro">Erro ao carregar agendamentos. Verifique se a tabela 'agendamentos' existe no seu banco de dados.</p>`;
+            }
+        }
+    </script>
 </body>
 </html>
