@@ -856,3 +856,316 @@ footer::before {
     border-color: var(--ouro-brilhante);
     box-shadow: 0 0 15px rgba(197, 160, 89, 0.4);
 }
+/* ==========================================
+   ESTILOS DO SISTEMA DE INSÍGNIAS
+   ========================================== */
+
+/* Toast de Conquista de Adesivo */
+.adesivo-toast {
+    position: fixed;
+    bottom: -100px;
+    right: 20px;
+    background: rgba(155, 20, 20, 0.95);
+    border: 1px solid var(--ouro, #d4af37);
+    border-radius: 7px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    z-index: 9999;
+    transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    color: white;
+}
+
+.adesivo-toast.show {
+    bottom: 20px;
+}
+
+.adesivo-toast img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+}
+
+.adesivo-toast-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.adesivo-toast-info p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    font-family: var(--font-accent);
+}
+
+/* Painel de Insígnias (Canto Inferior Esquerdo) */
+.painel-insignias-container {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 998;
+    font-family: 'Montserrat', sans-serif;
+    display: none; /* Só aparece quando ganha a primeira */
+}
+
+.painel-insignias-container.visivel {
+    display: block;
+}
+
+.btn-abrir-painel {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid var(--ouro, #d4af37);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+    font-weight: 600;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+}
+
+.btn-abrir-painel:hover {
+    transform: scale(1.05);
+    background: rgba(30, 30, 30, 1);
+}
+
+.btn-abrir-painel i {
+    color: var(--ouro, #d4af37);
+}
+
+/* Modal / Gaveta de Insígnias */
+.modal-insignias {
+    position: absolute;
+    bottom: 55px;
+    left: 0;
+    background: rgba(15, 15, 15, 0.98);
+    border: 1px solid var(--ouro, #d4af37);
+    border-radius: 5px;
+    padding: 18px;
+    width: 310px;
+    max-height: 400px;
+    overflow-y: auto;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+    
+    /* Remove a barra de rolagem visível */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer e Edge */
+}
+
+/* Chrome, Safari e Opera */
+.modal-insignias::-webkit-scrollbar {
+    display: none;
+}
+
+.modal-insignias.ativo {
+    display: flex;
+}
+
+.modal-header-insignias {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 8px;
+}
+
+.modal-header-insignias h3 {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--ouro, #d4af37);
+    letter-spacing: 1px;
+}
+
+.btn-fechar-modal {
+    background: none;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    font-size: 1.1rem;
+    border-radius: 3px;
+}
+
+.btn-fechar-modal:hover {
+    color: white;
+}
+
+.grid-insignias {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.insignia-slot {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 5px;
+    padding: 8px 4px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.insignia-slot:hover {
+    transform: scale(1.06);
+    border-color: var(--ouro, #d4af37);
+}
+
+.insignia-slot img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+}
+
+/* Estilo para bloqueada (Preto e branco + Cadeado) */
+.insignia-slot.bloqueada img {
+    filter: grayscale(100%) brightness(0.25);
+    opacity: 0.35;
+}
+
+.insignia-slot.bloqueada::after {
+    content: '\f023'; /* Ícone de cadeado do FontAwesome */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 14px;
+    text-shadow: 0 0 4px rgba(0,0,0,0.9);
+}
+
+.insignia-slot span {
+    font-size: 0.65rem;
+    margin-top: 6px;
+    color: #aaa;
+    display: block;
+    line-height: 1.1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.insignia-slot.desbloqueada span {
+    color: #fff;
+    font-weight: 500;
+}
+
+/* Modal de Inspeção (Zoom da Insígnia) */
+.insignia-zoom-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    backdrop-filter: blur(5px);
+}
+
+.insignia-zoom-modal.ativo {
+    display: flex;
+}
+
+.insignia-zoom-conteudo {
+    background: rgba(18, 18, 18, 0.98);
+    border: 1px solid var(--ouro, #d4af37);
+    border-radius: 5px;
+    padding: 30px;
+    text-align: center;
+    max-width: 340px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.9);
+    position: relative;
+    color: white;
+    animation: zoomInModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes zoomInModal {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.insignia-zoom-conteudo img {
+    width: 130px;
+    height: 130px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.5));
+}
+
+.insignia-zoom-conteudo.bloqueada img {
+    filter: grayscale(100%) brightness(0.25);
+    opacity: 0.35;
+}
+
+.insignia-zoom-conteudo h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.25rem;
+    color: var(--ouro, #d4af37);
+}
+
+.insignia-zoom-status {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.insignia-zoom-conteudo.desbloqueada .insignia-zoom-status {
+    color: #4ade80; /* Verde sucesso */
+}
+
+.insignia-zoom-conteudo.bloqueada .insignia-zoom-status {
+    color: #f87171; /* Vermelho/Cinza bloqueado */
+}
+
+.insignia-zoom-conteudo p {
+    margin: 0 0 25px 0;
+    font-size: 0.9rem;
+    color: #ccc;
+    line-height: 1.4;
+}
+
+.btn-fechar-zoom {
+    background: var(--ouro, #d4af37);
+    color: #000;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.btn-fechar-zoom:hover {
+    transform: scale(1.05);
+    background: #e6c547;
+}
